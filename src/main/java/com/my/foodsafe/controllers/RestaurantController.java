@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.dnd.DragSourceDragEvent;
+
 @Controller
 @RequestMapping("/restaurant")
 class RestaurantController {
@@ -23,7 +25,7 @@ class RestaurantController {
     @GetMapping("/")
     @ResponseBody
     public String hello() {
-        return "hello";
+        return "";
     }
 
     // 掃描餐廳時，若餐廳沒被其他使用者掃描過，必須儲存進入資料庫
@@ -37,10 +39,10 @@ class RestaurantController {
     }
 
     @PostMapping("/scan")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
+    public ResponseEntity<?> uploadImage(MultipartFile image) {
         try {
             // 檢查上傳的檔案是否存在
-            if (file.isEmpty()) {
+            if (image.isEmpty()) {
                 return ResponseEntity.badRequest().body("File is empty");
             }
 
